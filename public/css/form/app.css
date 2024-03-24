@@ -1,0 +1,32 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('../../assets/embossed-diamond.webp');
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.container {
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+}
+
+.content {
+    gap: 15vw;
+}
+
+section {
+    gap: 0.5vw;
+}
