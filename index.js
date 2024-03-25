@@ -1,4 +1,5 @@
 const path = require('path');
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -7,7 +8,18 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const bcrypt = require('bcrypt');
+const { connect } = require('http2');
 const port = process.env.PORT || 3000;
+mongoose.set('strictQuery', false);
+const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(process.env.MONGO_URI);
+        console.log(`MongoDB Connected: ${conn.connection.host}`);
+    } catch (error) {
+        console.log(err);
+        process.exit(1);
+    }
+}
 
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
@@ -28,8 +40,6 @@ app.use(methodOverride('_method'))
 app.use(express.urlencoded({
     extended: true
 }));
-
-mongoose.connect('mongodb://127.0.0.1:27017/krisan').then(() => console.log('Connect to MongoDB')).catch((err) => console.log(err));
 
 const data = [{
         name: 'Penggorok Daun',
@@ -500,6 +510,8 @@ app.post('/g16', auth, async (req, res) => {
     res.redirect('/dashboard');
 });
 
-app.listen(port, () => {
-    console.log(`listening on port ${port}`);
-})
+connectDB().then(() => {
+    app.listen(port, () => {
+        console.log(`listening on port ${port}`);
+    });
+});
