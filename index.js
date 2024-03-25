@@ -13,10 +13,10 @@ const port = process.env.PORT || 3000;
 mongoose.set('strictQuery', false);
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect(process.env.MONGO_URI);
+        const conn = await mongoose.connect(process.env.MONGODB_CONNECT_URI);
         console.log(`MongoDB Connected: ${conn.connection.host}`);
     } catch (error) {
-        console.log(err);
+        console.log(error);
         process.exit(1);
     }
 }
