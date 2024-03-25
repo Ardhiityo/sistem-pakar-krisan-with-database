@@ -252,11 +252,11 @@ app.post('/register', async (req, res) => {
             });
             user.save();
             req.session.user_id = user.id;
-            req.flash('flash_messages', 'Login berhasil!');
+            req.flash('flash_messages', 'Sukses masuk!');
             res.redirect(`dashboard`);
         }
     } else {
-        req.flash('flash_messages', 'Konfirmasi password ulang!');
+        req.flash('flash_messages', 'Konfirmasi sandi ulang!');
         res.redirect('/register');
     }
 });
@@ -276,10 +276,10 @@ app.post('/login', async (req, res) => {
             const valid = await bcrypt.compare(pw, pwcom);
             if (valid) {
                 req.session.user_id = user.id;
-                req.flash('flash_messages', 'Login berhasil!');
+                req.flash('flash_messages', 'Sukses masuk!');
                 res.redirect(`dashboard`);
             } else {
-                req.flash('flash_messages', 'Password salah!');
+                req.flash('flash_messages', 'Sandi salah!');
                 res.redirect('/login');
             }
         }
@@ -308,7 +308,7 @@ app.put('/password', async (req, res) => {
     const hashPw = await bcrypt.hash(password, 10);
     user.password = hashPw;
     await user.save();
-    req.flash('flash_messages', 'Password berhasil diubah!');
+    req.flash('flash_messages', 'Sandi sukses diubah!');
     res.redirect('/dashboard');
 });
 

@@ -17,10 +17,11 @@
 <body>
 
     <div class="container-fluid">
-        <div class="container my-5">
-            <div class="row my-2">
+        <div class="container my-4">
+            <div class="row">
                 <div class="col-12 d-flex flex-row justify-content-end align-items-center">
-                    <h3 class="mr-3 fw-bold"><span class="text-primary">Hello,</span> <%= user.username %>
+                    <h3 class="mr-3 fw-bold"><span class="text-primary">Hello,</span>
+                        <%= user.username %>
                             <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
                                 class="bi bi-person-circle" viewBox="0 0 16 16">
                                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
@@ -29,9 +30,9 @@
                             </svg>
                 </div>
             </div>
-            <div class="row d-flex">
+            <div class="row d-flex mb-5">
                 <div class="col-12 d-flex flex-row justify-content-end align-items-center">
-                    <a href="/password" class="mx-2">
+                    <a href="/password" class="mx-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         <button type="button" class="btn btn-sm btn-primary rounded-1">Ubah Sandi</button>
                     </a>
                     <form action="/logout" method="post">
@@ -54,29 +55,29 @@
             <% if(user.penyakit.length> 0) {%>
                 <div class="row">
                     <div class="col-12 d-flex flex-row justify-content-start align-items-center">
-                        <h3 class="text-danger fw-bold">
+                        <h4 class="text-danger fw-bold">
                             Positif <%= user.penyakit.length %> Penyakit
-                        </h3>
+                        </h4>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-12 d-flex flex-row justify-content-start">
                         <a href="/g1">
-                            <button type="button" class="btn btn-sm btn-outline-dark">
-                                Diganosa lagi
+                            <button type="button" class="btn btn-sm btn-outline-dark rounded-1">
+                                Diganosa Lagi
                             </button>
                         </a>
 
                         <form action="/delete/penyakit?_method=PUT" method="post" class="mx-2">
-                            <button type="submit" class="btn btn-sm btn-primary">Hapus Riwayat</button>
+                            <button type="submit" class="btn btn-sm btn-primary rounded-1">Hapus Riwayat</button>
                         </form>
                     </div>
                 </div>
                 <% } else {%>
                     <h3 class="fw-bold">Ayo, <span class="text-primary">Diagnosa!</span></h3>
                     <a href="/g1">
-                        <button type="button" class="btn btn-sm btn-outline-dark">
+                        <button type="button" class="btn btn-sm btn-outline-dark rounded-1">
                             Diganosa
                         </button>
                     </a>
@@ -123,6 +124,42 @@
                                 <% } %>
         </div>
     </div>
+
+
+    <!-- Modal -->
+
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 fw-bold" id="staticBackdropLabel"><span class="text-primary">Ubah</span> Sandi</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <section class="my-3">
+                        <form action="/password?_method=PUT" method="post">
+                            <div class="row mb-4 w-100">
+                                <label for="password" class="form-label">Buat sandi baru</label>
+                                <input type="password" name="password" id="password" class="form-control" minlength="5"
+                                    maxlength="10" aria-describedby="pwHelp" placeholder="min: 5 Character">
+                                    <div id="pwHelp" class="form-text">Selalu jaga kerahasiaan sandi Anda.</div>
+                            </div>
+                            <div class="row w-100">
+                                <button type="submit" class="btn btn-primary rounded-1 btn-sm">Submit</button>
+                            </div>
+                        </form>
+                    </section>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm rounded-1 btn-dark" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
